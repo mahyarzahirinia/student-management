@@ -185,7 +185,7 @@ const openRemoveDialog = (index: number) => {
         </template>
 
         <template v-slot:item.activeStatus="{ item }">
-          <v-checkbox v-model="item.active" disabled></v-checkbox>
+          <v-checkbox v-model="item.active" class="pt-4" disabled></v-checkbox>
         </template>
         <template v-slot:item.birthDate="{ item }">
           <div>
