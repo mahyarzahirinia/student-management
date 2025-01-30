@@ -5,7 +5,7 @@ import { type Student } from "@/stores/data";
 import CreateEditDialog from "@/views/dialogs/studentManagement/CreateEditDialog.vue";
 import RemoveDialog from "@/views/dialogs/studentManagement/RemoveDialog.vue";
 import moment from "moment";
-import Vue3PrintNb from "vue3-print-nb";
+import Print from "@/components/facilitator/Print.vue";
 
 //
 // const DocumentEditor = inject("DocumentEditor");
@@ -105,6 +105,53 @@ const openRemoveDialog = (index: number) => {
   studentIdRef.value = students[index].studentId;
   isDialogOpen.value = true;
 };
+
+const dummyProps = reactive({
+  data: [...students],
+  itemProps: [
+    ...headers.value
+      .filter((header) => header.key !== "id")
+      .filter((header) => header.key !== "operations")
+      .map((header) => ({
+        label: header.title,
+        prop: header.key,
+        type: "string",
+      })),
+  ],
+  title: "Sample Data Table",
+  btnTitle: "Print Table",
+  btnTooltip: "Click to print the table",
+  btnColor: "blue",
+  showRowNumber: true,
+  printSettings: {
+    paperSize: "A4",
+    orientation: "portrait",
+    margins: {
+      top: ".5cm",
+      bottom: ".5cm",
+      left: ".5cm",
+      right: ".5cm",
+    },
+    scaling: "100%",
+    header: {
+      show: true,
+      content: "<h2>Report Title</h2>",
+    },
+    footer: {
+      show: true,
+      content: '<span class="page-number">page:</span>',
+    },
+    showRowNumbers: true,
+    font: {
+      size: "12px",
+      family: "vazir-medium, sans-serif",
+    },
+    pagination: {
+      enabled: true,
+      rowsPerPage: 10,
+    },
+  },
+});
 </script>
 
 <template>
@@ -146,9 +193,7 @@ const openRemoveDialog = (index: number) => {
         @click="isCreateEditDialogOpen = true"
         >ایجاد دانشجو
       </v-btn>
-      <v-btn v-print="printObj" prepend-icon="mdi-printer" variant="text"
-        >چاپ
-      </v-btn>
+      <Print v-bind="dummyProps" />
       <v-btn
         prepend-icon="mdi-lock-reset"
         variant="text"
@@ -157,7 +202,7 @@ const openRemoveDialog = (index: number) => {
       </v-btn>
     </template>
 
-    <div id="printArea">
+    <div>
       <v-data-table
         v-model="selected"
         :headers="headers"
