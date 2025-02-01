@@ -139,7 +139,7 @@ const dummyProps = reactive({
     },
     footer: {
       show: true,
-      content: '<span class="page-number">page:</span>',
+      content: '<span class="page-number">صفحه: </span>',
     },
     showRowNumbers: true,
     font: {

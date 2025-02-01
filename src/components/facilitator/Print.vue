@@ -429,6 +429,7 @@ function handleCancelLoadingPrint() {
 
 @media print {
   @page {
+    counter-increment: page;
     direction: rtl;
     margin: 1cm;
     size: A4 portrait; /* پیش‌فرض، یا از props.printSettings قابل تنظیم */
@@ -439,6 +440,7 @@ function handleCancelLoadingPrint() {
   }
 
   body {
+    counter-reset: page 1;
     font-size: 14px; /* تغییر سایز فونت برای چاپ */
     line-height: 1.6; /* تنظیم فاصله خطوط */
     margin: 1cm; /* حاشیه کاغذ */
