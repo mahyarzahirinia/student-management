@@ -386,6 +386,7 @@ function handleCancelLoadingPrint() {
             >
               {{ convertValue(row[col.prop], col) }}
             </td>
+            <td v-show="rowIndex % 5 === 0" class="page-break page-number"></td>
           </tr>
         </tbody>
       </table>
@@ -429,14 +430,18 @@ function handleCancelLoadingPrint() {
 
 @media print {
   @page {
-    counter-increment: page;
     direction: rtl;
     margin: 1cm;
     size: A4 portrait; /* پیش‌فرض، یا از props.printSettings قابل تنظیم */
   }
 
-  .page-number::after {
-    content: "صفحه " counter(page);
+  .page-number::before {
+    content: "صفحه: " counter(page_number);
+    counter-increment: page_number;
+  }
+
+  .page-break {
+    break-after: page;
   }
 
   body {
