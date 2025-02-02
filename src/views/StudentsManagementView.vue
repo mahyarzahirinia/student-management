@@ -148,7 +148,7 @@ const dummyProps = reactive({
     },
     pagination: {
       enabled: true,
-      rowsPerPage: 10,
+      rowsPerPage: 5,
     },
   },
 });
@@ -217,7 +217,7 @@ const dummyProps = reactive({
               color="grey-lighten-1"
               icon="mdi-pencil"
               variant="text"
-              @click="openEditDialog(index)"
+              @click="openEditDialog(item.id)"
             ></v-btn>
 
             <v-btn
