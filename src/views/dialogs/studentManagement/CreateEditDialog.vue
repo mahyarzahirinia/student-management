@@ -82,30 +82,40 @@ const onSubmit = handleSubmit((values) => {
         <form @submit="onSubmit">
           <v-text-field
             v-model="fullName"
+            :color="fullNameError ? 'error' : ''"
+            :error-messages="fullNameError"
             label="نام و نام خانوادگی"
-            required
           ></v-text-field>
-          <p class="text-red-500 text-sm">{{ fullNameError }}</p>
 
           <v-text-field
             v-model="studentId"
+            :color="studentIdError ? 'error' : ''"
+            :error-messages="studentIdError"
             label="شماره دانشجویی"
-            required
           ></v-text-field>
-          <p class="text-red-500 text-sm">{{ studentIdError }}</p>
 
-          <v-text-field v-model="email" label="ایمیل" required></v-text-field>
-          <p class="text-red-500 text-sm">{{ emailError }}</p>
+          <v-text-field
+            v-model="email"
+            :color="emailError ? 'error' : ''"
+            :error-messages="emailError"
+            label="ایمیل"
+          ></v-text-field>
 
-          <v-checkbox v-model="active" label="فعال"></v-checkbox>
-          <p class="text-red-500 text-sm">{{ activeError }}</p>
+          <v-checkbox
+            v-model="active"
+            :color="activeError ? 'error' : ''"
+            :error-messages="activeError"
+            label="فعال"
+          ></v-checkbox>
 
           <Vue3PersianDatetimePicker
             v-model="birthDate"
+            :color="birthDateError ? 'red' : '#aaa'"
             label="تاریخ تولد"
             @change="onDateChange"
-          ></Vue3PersianDatetimePicker>
-          <p class="text-red-500 text-sm">{{ birthDateError }}</p>
+          >
+          </Vue3PersianDatetimePicker>
+          <p class="text-red-500 text-xs pr-4 pt-1">{{ birthDateError }}</p>
 
           <div class="flex justify-end gap-2 mt-4">
             <v-btn color="grey" @click="emit('handleClose')">انصراف</v-btn>

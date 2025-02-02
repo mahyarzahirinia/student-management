@@ -224,7 +224,7 @@ const dummyProps = reactive({
               color="red-lighten-2"
               icon="mdi-close-thick"
               variant="text"
-              @click="openRemoveDialog(index)"
+              @click="openRemoveDialog(item.id)"
             ></v-btn>
           </div>
         </template>
