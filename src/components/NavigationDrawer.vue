@@ -1,18 +1,36 @@
 <script lang="ts" setup="">
 import { ref } from "vue";
 import links from "@/routes/mainLinks";
-import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const isDrawerOpen = defineModel<boolean>();
+const isPermanent = ref(false);
 const allLinks = ref(links);
+
+const handleOpenPermanent = () => {
+  isPermanent.value = !isPermanent.value;
+};
 </script>
 
 <template>
   <div>
-    <v-navigation-drawer v-model="isDrawerOpen" expand-on-hover rail>
+    <v-navigation-drawer
+      v-model="isDrawerOpen"
+      :permanent="isPermanent"
+      :rail="!isPermanent"
+      expand-on-hover
+    >
       <v-layout>
         <div class="flex flex-col flex-grow-1">
+          <v-icon
+            :class="[
+              'm-4',
+              'text-gray-500',
+              'cursor-pointer',
+              { 'toggle-pin text-red-800': isPermanent },
+            ]"
+            icon="mdi-pin"
+            @click="handleOpenPermanent"
+          />
           <v-list-item
             v-for="link in allLinks"
             :key="link.path"
@@ -22,7 +40,6 @@ const allLinks = ref(links);
               <v-icon v-if="typeof link.icon === 'string'"
                 >{{ link.icon }}
               </v-icon>
-              <FontAwesomeIcon v-else :icon="link.icon" />
             </template>
             <v-list-item-title>{{ link.label }}</v-list-item-title>
           </v-list-item>
@@ -32,4 +49,9 @@ const allLinks = ref(links);
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.toggle-pin {
+  transition: transform 0.2s;
+  transform: rotate(30deg);
+}
+</style>
