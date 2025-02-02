@@ -12,13 +12,11 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@mdi/font": "^7.4.47",
     "@syncfusion/ej2-vue-documenteditor": "^28.1.40",
     "@vee-validate/yup": "^4.15.0",
+    "jalali-moment": "^3.3.11",
     "moment": "^2.30.1",
-    "moment-jalaali": "^0.10.4",
     "pinia": "^2.3.0",
     "pinia-plugin-persistedstate": "^4.2.0",
     "vee-validate": "^4.15.0",
@@ -48,5 +46,6 @@
     "vitest": "^2.1.8",
     "vue-tsc": "^2.1.10",
     "vuetify": "^3.7.7"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
