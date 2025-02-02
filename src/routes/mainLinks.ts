@@ -1,5 +1,5 @@
 type Link = {
-  icon?: string | IconDefinition;
+  icon?: string;
   path: string;
   label: string;
 };
