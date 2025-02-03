@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-const emit = defineEmits(["toggleDrawer"]);
-console.log("emit", emit);
+const emit = defineEmits(["toggleDrawer", "toggleLeftDrawer"]);
 </script>
 
 <template>
@@ -12,7 +11,7 @@ console.log("emit", emit);
     <v-app-bar-title>پیوند ها</v-app-bar-title>
 
     <template v-slot:append>
-      <v-btn icon="mdi-dots-vertical"></v-btn>
+      <v-btn icon="mdi-dots-vertical" @click="emit('toggleLeftDrawer')"></v-btn>
     </template>
   </v-app-bar>
 </template>
