@@ -6,6 +6,7 @@ import CreateEditDialog from "@/views/dialogs/studentManagement/CreateEditDialog
 import RemoveDialog from "@/views/dialogs/studentManagement/RemoveDialog.vue";
 import moment from "jalali-moment";
 import Print from "@/components/facilitator/Print.vue";
+import { useDebounce } from "@vueuse/core";
 
 //
 // const DocumentEditor = inject("DocumentEditor");
@@ -106,6 +107,8 @@ const openRemoveDialog = (index: number) => {
   isDialogOpen.value = true;
 };
 
+const debouncedSearch = useDebounce(search, 2000);
+
 const dummyProps = reactive({
   data: [...students],
   itemProps: [
@@ -159,7 +162,7 @@ const dummyProps = reactive({
     <template v-slot:text>
       <div class="flex flex-col">
         <v-text-field
-          v-model="search"
+          :modelValue="debouncedSearch"
           label="جستجو"
           placeholder="در هر فیلدی جست و جو کنید"
           prepend-inner-icon="mdi-magnify"
