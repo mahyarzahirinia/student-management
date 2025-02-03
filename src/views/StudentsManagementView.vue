@@ -4,7 +4,7 @@ import { useStudentsStore } from "@/stores/students";
 import { type Student } from "@/stores/data";
 import CreateEditDialog from "@/views/dialogs/studentManagement/CreateEditDialog.vue";
 import RemoveDialog from "@/views/dialogs/studentManagement/RemoveDialog.vue";
-import moment from "moment";
+import moment from "jalali-moment";
 import Print from "@/components/facilitator/Print.vue";
 
 //
@@ -234,11 +234,7 @@ const dummyProps = reactive({
         </template>
         <template v-slot:item.birthDate="{ item }">
           <div>
-            {{
-              moment(item.birthDate, "YYYY-MM-DD")
-                .locale("fa")
-                .format("YYYY/MM/DD")
-            }}
+            {{ moment(item.birthDate).locale("fa").format("YYYY/MM/DD") }}
           </div>
         </template>
       </v-data-table>
