@@ -15,6 +15,7 @@ const handleOpenPermanent = () => {
   <div>
     <v-navigation-drawer
       v-model="isDrawerOpen"
+      :location="$vuetify.display.mobile ? 'right' : undefined"
       :permanent="isPermanent"
       :rail="!isPermanent"
       expand-on-hover

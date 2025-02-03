@@ -77,7 +77,9 @@ const toggleDrawer = () => {
       <MainAppBar @toggleDrawer="toggleDrawer" />
       <NavigationDrawer v-model="isDrawerOpen" />
       <v-main>
-        <RouterView />
+        <v-container fluid>
+          <RouterView />
+        </v-container>
       </v-main>
     </v-app>
   </v-locale-provider>
