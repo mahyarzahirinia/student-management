@@ -9,7 +9,29 @@
     url('fonts/Vazir-Medium.woff') format('woff'),
     url('fonts/Vazir-Medium.woff2') format('woff2'),
     url('fonts/Vazir-Medium.ttf') format('truetype');
-    font-weight: normal;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: vazir-thin;
+    src: url('fonts/Vazir-Thin.eot');
+    src: url('fonts/Vazir-Thin.eot?#iefix') format('FontName-opentype'),
+    url('fonts/Vazir-Thin.woff') format('woff'),
+    url('fonts/Vazir-Thin.woff2') format('woff2'),
+    url('fonts/Vazir-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: vazir-bold;
+    src: url('fonts/Vazir-bold.eot');
+    src: url('fonts/Vazir-bold.eot?#iefix') format('FontName-opentype'),
+    url('fonts/Vazir-bold.woff') format('woff'),
+    url('fonts/Vazir-bold.woff2') format('woff2'),
+    url('fonts/Vazir-bold.ttf') format('truetype');
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -17,8 +39,15 @@
     font-family: 'vazir-medium', sans-serif;
 }
 
-* {
-    font-family: 'vazir-medium', sans-serif;
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "vazir-bold", sans-serif;
+    font-weight: 700;
+}
+
+p, div, span {
+    font-family: "vazir-thin", sans-serif;
+    font-weight: 100;
 }
 
 #app {
