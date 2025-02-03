@@ -1,4 +1,4 @@
-type Link = {
+export type Link = {
   icon?: string;
   path: string;
   label: string;

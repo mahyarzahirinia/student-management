@@ -1,14 +1,18 @@
 <script lang="ts" setup="">
-import { ref } from "vue";
-import links from "@/routes/mainLinks";
+import { computed, ref } from "vue";
+import routes from "@/routes/mainRoutes";
 
 const isDrawerOpen = defineModel<boolean>();
 const isPermanent = ref(false);
-const allLinks = ref(links);
+const allLinks = ref(routes);
 
 const handleOpenPermanent = () => {
   isPermanent.value = !isPermanent.value;
 };
+
+const filteredList = computed(() =>
+  allLinks.value.filter((item) => item.visibility !== "hidden"),
+);
 </script>
 
 <template>
@@ -33,7 +37,7 @@ const handleOpenPermanent = () => {
             @click="handleOpenPermanent"
           />
           <v-list-item
-            v-for="link in allLinks"
+            v-for="link in filteredList"
             :key="link.path"
             :to="link.path"
           >
