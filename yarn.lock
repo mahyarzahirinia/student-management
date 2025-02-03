@@ -2887,6 +2887,11 @@ perfect-debounce@^1.0.0:
   resolved "https://registry.yarnpkg.com/perfect-debounce/-/perfect-debounce-1.0.0.tgz#9c2e8bc30b169cc984a58b7d5b28049839591d2a"
   integrity sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==
 
+persian-helpers@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/persian-helpers/-/persian-helpers-0.1.2.tgz#05d6fd31f9a378cd614878675fbed73f2058ebed"
+  integrity sha512-f3J5tN+4WqPzR5A9G/eHCdle2KRCxXkMTNw7pIZ2Bin5cK4ibQ7TNT5cA+eFMkCuxHds9Guzr4KcTPwD3cMSxw==
+
 picocolors@^1.0.0, picocolors@^1.0.1, picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"

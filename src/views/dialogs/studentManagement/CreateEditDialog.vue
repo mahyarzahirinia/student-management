@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import Vue3PersianDatetimePicker from "vue3-persian-datetime-picker";
 import { useForm, useField } from "vee-validate";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import { type Student } from "@/stores/data";
 import { boolean } from "yup";
 import moment from "moment";
 import "moment/locale/fa";
+import { convertDigits } from "persian-helpers";
 
 const isCreateEditModalOpen = defineModel<boolean>("isCreateEditModalOpen");
 const props = defineProps<{ student: Student | null }>();
@@ -16,10 +17,13 @@ const validationSchema = yup.object({
   fullName: yup.string().required("نام و نام خانوادگی الزامی است"),
   studentId: yup
     .string()
-    .matches(/^[0-9]+$/, "لطفا شماره وارد کنید")
+    .matches(/^\d+$/, "لطفا شماره وارد کنید")
+    .transform((value, originalValue) =>
+      convertDigits(originalValue, { to: "en" }),
+    )
     .required("شماره دانشجویی الزامی است"),
   email: yup.string().email("ایمیل نامعتبر است").required("ایمیل الزامی است"),
-  active: yup.boolean().required(),
+  active: yup.boolean().required("حالت فعال/غیرفعال بودن باید مشخص شود"),
   birthDate: yup.string().required("تاریخ تولد الزامی است"),
 });
 
@@ -44,16 +48,31 @@ watch(
     } else {
       resetForm({
         values: {
-          fullName: "",
-          studentId: "",
-          email: "",
-          active: true,
-          birthDate: "",
+          fullName: null,
+          studentId: null,
+          email: null,
+          active: null,
+          birthDate: null,
         },
       });
     }
   },
   { immediate: true },
+);
+
+watch(
+  () => isCreateEditModalOpen,
+  () => {
+    resetForm({
+      values: {
+        fullName: null,
+        studentId: null,
+        email: null,
+        active: null,
+        birthDate: null,
+      },
+    });
+  },
 );
 
 const onDateChange = (date: string) => {
@@ -65,6 +84,8 @@ const onDateChange = (date: string) => {
 const onSubmit = handleSubmit((values) => {
   emit("handleSubmit", values);
 });
+
+const activeIndeterminate = computed(() => active.value === null);
 </script>
 
 <template>
@@ -105,6 +126,7 @@ const onSubmit = handleSubmit((values) => {
             v-model="active"
             :color="activeError ? 'error' : ''"
             :error-messages="activeError"
+            :indeterminate="activeIndeterminate"
             label="فعال"
           ></v-checkbox>
 
