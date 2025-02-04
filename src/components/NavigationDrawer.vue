@@ -1,18 +1,20 @@
 <script lang="ts" setup="">
-import { computed, ref } from "vue";
-import routes from "@/routes/mainRoutes";
+import { computed, defineComponent, ref } from "vue";
+import routes, { type Node } from "@/routes/mainRoutes";
+import RecursiveComponent from "@/components/RecursiveComponent.vue";
+import { isNodeParent } from "@/helper/isNodeParent";
 
 const isDrawerOpen = defineModel<boolean>();
 const isPermanent = ref(false);
-const allLinks = ref(routes);
+const allNodes = ref<Node[]>(routes);
 
 const handleOpenPermanent = () => {
   isPermanent.value = !isPermanent.value;
 };
 
-const filteredList = computed(() =>
-  allLinks.value.filter((item) => item.visibility !== "hidden"),
-);
+// const filteredList = computed(() =>
+//   allLinks.value.filter((item) => item.visibility !== "hidden"),
+// );
 </script>
 
 <template>
@@ -24,32 +26,48 @@ const filteredList = computed(() =>
       :rail="!isPermanent"
       expand-on-hover
     >
-      <v-layout>
-        <div class="flex flex-col flex-grow-1">
-          <v-icon
-            :class="[
-              'm-4',
-              'text-gray-500',
-              'cursor-pointer',
-              { 'toggle-pin text-red-800': isPermanent },
-            ]"
-            icon="mdi-pin"
-            @click="handleOpenPermanent"
-          />
-          <v-list-item
-            v-for="link in filteredList"
-            :key="link.path"
-            :to="link.path"
-          >
+      <v-list>
+        <v-icon
+          :class="[
+            'm-4',
+            'text-gray-500',
+            'cursor-pointer',
+            { 'toggle-pin text-red-800': isPermanent },
+          ]"
+          icon="mdi-pin"
+          @click="handleOpenPermanent"
+        />
+        <!--          pin-->
+        <template v-for="node in allNodes" :key="node.path">
+          <v-list-item v-if="node?.visibility !== 'hidden'" :to="node.path">
+            <template v-slot:default>
+              <div v-if="isNodeParent(node)">
+                <RecursiveComponent :node="node"></RecursiveComponent>
+              </div>
+              <div v-else>
+                <v-list-item-title>{{ node?.label }}</v-list-item-title>
+              </div>
+            </template>
+
             <template v-slot:prepend>
-              <v-icon v-if="typeof link.icon === 'string'"
-                >{{ link.icon }}
+              <v-icon v-if="node?.icon && typeof node?.icon === 'string'"
+                >{{ node.icon }}
               </v-icon>
             </template>
-            <v-list-item-title>{{ link.label }}</v-list-item-title>
           </v-list-item>
-        </div>
-      </v-layout>
+        </template>
+
+        <!--        <v-list>-->
+        <!--          <v-list-group value="submenu">-->
+        <!--            <template v-slot:activator="{ props }">-->
+        <!--              <v-list-item title="submenu" v-bind="props"></v-list-item>-->
+        <!--            </template>-->
+        <!--            <v-list-item title="sub1"></v-list-item>-->
+        <!--            <v-list-item title="sub2"></v-list-item>-->
+        <!--            <v-list-item title="sub3"></v-list-item>-->
+        <!--          </v-list-group>-->
+        <!--        </v-list>-->
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
