@@ -42,7 +42,7 @@ const handleOpenPermanent = () => {
           <v-list-item v-if="node?.visibility !== 'hidden'" :to="node.path">
             <template v-slot:default>
               <div v-if="isNodeParent(node)">
-                <RecursiveComponent :node="node"></RecursiveComponent>
+                <RecursiveComponent :node="node" />
               </div>
               <div v-else>
                 <v-list-item-title>{{ node?.label }}</v-list-item-title>
@@ -50,8 +50,8 @@ const handleOpenPermanent = () => {
             </template>
 
             <template v-slot:prepend>
-              <v-icon v-if="node?.icon && typeof node?.icon === 'string'"
-                >{{ node.icon }}
+              <v-icon v-if="node?.icon && typeof node?.icon === 'string'">
+                {{ node.icon }}
               </v-icon>
             </template>
           </v-list-item>
