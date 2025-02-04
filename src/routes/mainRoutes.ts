@@ -5,8 +5,8 @@ import StudentsManagementView from "../views/StudentsManagementView.vue";
 export type Node = Omit<RouteRecordRaw, "children"> & {
   visibility?: "hidden" | "visible";
   icon?: string;
-  label?: string;
-  children?: Node[]; // Ensures children follow the same structure
+  label: string;
+  children?: Node[];
 };
 
 const routes: Node[] = [
@@ -14,6 +14,7 @@ const routes: Node[] = [
     visibility: "hidden",
     path: "/print",
     name: "print",
+    label: "پرینت",
     component: () => import("@/views/PrintView.vue"),
   },
   {
@@ -24,11 +25,13 @@ const routes: Node[] = [
     component: StudentsManagementView,
     children: [
       {
-        path: "/students-management/sub-route",
+        path: "/students-management/sub-route1",
         name: "sub-route",
+        label: "ساب روت ۱",
         component: () => import("@/components/SubRoute.vue"),
         children: [
           {
+            label: "مینی روت",
             path: "/students-management/sub-route/mini-route",
             name: "mini-route",
             component: () => import("@/components/MiniRoute.vue"),
@@ -36,7 +39,8 @@ const routes: Node[] = [
         ],
       },
       {
-        path: "/students-management/sub-route",
+        label: "ساب روت ۲",
+        path: "/students-management/sub-route2",
         name: "sub-route2",
         component: () => import("@/components/SubRoute.vue"),
       },
