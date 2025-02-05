@@ -190,19 +190,23 @@ const dummyProps = reactive({
       >
         <template v-slot:activator="props"></template>
       </CreateEditDialog>
-      <v-btn
-        prepend-icon="mdi-plus"
-        variant="text"
-        @click="isCreateEditDialogOpen = true"
-        >ایجاد دانشجو
-      </v-btn>
-      <Print v-bind="dummyProps" />
-      <v-btn
-        prepend-icon="mdi-lock-reset"
-        variant="text"
-        @click="studentsStore.reset"
-        >ریست فرم
-      </v-btn>
+      <div class="flex items-center">
+        <v-btn
+          color="success"
+          prepend-icon="mdi-plus"
+          variant="flat"
+          @click="isCreateEditDialogOpen = true"
+          >ایجاد دانشجو
+        </v-btn>
+        <Print v-bind="dummyProps" />
+        <v-btn
+          color="warning"
+          prepend-icon="mdi-lock-reset"
+          variant="flat"
+          @click="studentsStore.reset"
+          >ریست دیتا
+        </v-btn>
+      </div>
     </template>
 
     <div>
@@ -217,15 +221,15 @@ const dummyProps = reactive({
         <template v-slot:item.operations="{ index, item }">
           <div class="flex flex-row">
             <v-btn
-              color="grey-lighten-1"
-              icon="mdi-pencil"
+              class="before:text-green-500"
+              icon="mdi-account-edit"
               variant="text"
               @click="openEditDialog(item.id)"
             ></v-btn>
 
             <v-btn
               color="red-lighten-2"
-              icon="mdi-close-thick"
+              icon="mdi-delete"
               variant="text"
               @click="openRemoveDialog(item.id)"
             ></v-btn>

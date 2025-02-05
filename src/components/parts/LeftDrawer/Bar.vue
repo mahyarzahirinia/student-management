@@ -5,7 +5,7 @@ const isDrawerOpen = defineModel<boolean>();
 </script>
 
 <template>
-  <div class="border-b-2 bg-green-100 p-2">
+  <div class="border-b-2 bg-green-100 p-2 pt-3">
     <div class="flex justify-between">
       <div class="font-bold text-green-600">تنظیمات کاربری</div>
       <div>

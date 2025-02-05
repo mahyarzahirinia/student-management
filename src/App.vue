@@ -19,15 +19,16 @@ const toggleLeftDrawer = () => {
 
 <template>
   <v-locale-provider rtl>
-    <v-app class="py-4" theme="light">
+    <v-app class="py-4" full-height theme="green">
       <MainAppBar
         @toggleDrawer="toggleDrawer"
         @toggleLeftDrawer="toggleLeftDrawer"
       />
       <NavigationDrawer v-model="isDrawerOpen" />
       <LeftDrawer v-model="isLeftDrawerOpen" />
+
       <v-main>
-        <v-container fluid>
+        <v-container>
           <RouterView />
         </v-container>
       </v-main>

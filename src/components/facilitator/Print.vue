@@ -308,7 +308,11 @@ function handleCancelLoadingPrint() {
   </div>
 
   <div class="container">
-    <v-btn prepend-icon="mdi-printer" variant="text" @click="handlePrint"
+    <v-btn
+      color="info"
+      prepend-icon="mdi-printer"
+      variant="flat"
+      @click="handlePrint"
       >چاپ
     </v-btn>
     <!--    <button-->

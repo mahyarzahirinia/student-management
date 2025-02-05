@@ -13,18 +13,29 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import lightTheme from "./themes/lightTheme";
-import darkTheme from "./themes/darkTheme";
+import greenTheme from "./themes/greenTheme";
+import redTheme from "./themes/redTheme";
 import "@mdi/font/css/materialdesignicons.css";
 
 import Vue3PersianDatetimePicker from "vue3-persian-datetime-picker";
+import { md3 } from "vuetify/blueprints";
+import yellowTheme from "./themes/yellowTheme";
+import grayTheme from "./themes/grayTheme";
 
 const app = createApp(App);
 const vuetify = createVuetify({
+  blueprint: md3,
   icons: { defaultSet: "mdi" },
   components,
   directives,
-  theme: { themes: { light: lightTheme, dark: darkTheme } },
+  theme: {
+    themes: {
+      green: greenTheme,
+      red: redTheme,
+      yellow: yellowTheme,
+      gray: grayTheme,
+    },
+  },
 });
 
 const pinia = createPinia();
