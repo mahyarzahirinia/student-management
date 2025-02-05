@@ -5,19 +5,19 @@ const isDrawerOpen = defineModel<boolean>();
 </script>
 
 <template>
-  <div class="border-b-2 bg-green-100 p-2 pt-3">
-    <div class="flex justify-between">
-      <div class="font-bold text-green-600">تنظیمات کاربری</div>
-      <div>
-        <v-icon
-          class="rounded-sm p-1 bg-green-300 text-green-700 cursor-pointer"
-          icon="mdi-close"
-          size="18"
-          @click="isDrawerOpen = !isDrawerOpen"
-        ></v-icon>
-      </div>
-    </div>
-  </div>
+  <v-card class="border-b-2 py-2 px-3" rounded="0">
+    <template v-slot:title>
+      <div class="font-bold text-primary text-sm">تنظیمات کاربری</div>
+    </template>
+    <template v-slot:append>
+      <v-icon
+        class="rounded-sm px-2 py-1 cursor-pointer bg-secondary"
+        icon="mdi-close"
+        size="18"
+        @click="isDrawerOpen = !isDrawerOpen"
+      />
+    </template>
+  </v-card>
 </template>
 
 <style scoped></style>

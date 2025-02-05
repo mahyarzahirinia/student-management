@@ -7,7 +7,7 @@ const props = defineProps<{ title: string }>();
 <template>
   <v-container>
     <v-divider :opacity="5" :thickness="2">
-      <div class="text-green-800 font-bold">{{ props.title }}</div>
+      <div class="text-primary font-bold">{{ props.title }}</div>
     </v-divider>
   </v-container>
 </template>

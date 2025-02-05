@@ -192,7 +192,7 @@ const dummyProps = reactive({
       </CreateEditDialog>
       <div class="flex items-center">
         <v-btn
-          color="success"
+          color="primary"
           prepend-icon="mdi-plus"
           variant="flat"
           @click="isCreateEditDialogOpen = true"
@@ -200,7 +200,7 @@ const dummyProps = reactive({
         </v-btn>
         <Print v-bind="dummyProps" />
         <v-btn
-          color="warning"
+          color="primary"
           prepend-icon="mdi-lock-reset"
           variant="flat"
           @click="studentsStore.reset"

@@ -63,7 +63,7 @@ watch(
       temporary
     >
       <v-layout>
-        <div class="flex flex-col w-full bg-green-50">
+        <div class="flex flex-col w-full bg-surface">
           <!--تنظیمات کاربری-->
           <Bar v-model="isDrawerOpen" />
           <div class="flex flex-col p-4">

@@ -8,11 +8,11 @@ const selected = defineModel<boolean>();
 <template>
   <div class="flex justify-between align-center">
     <div class="flex gap-2 align-center">
-      <v-icon class="text-green-500" icon="mdi-help-circle" size="20" />
+      <v-icon class="text-primary" icon="mdi-help-circle" size="20" />
       <div class="font-bold">{{ props.title }}</div>
     </div>
     <div>
-      <v-switch v-model="selected" class="h-[57px]" color="green"></v-switch>
+      <v-switch v-model="selected" class="h-[57px]" color="primary"></v-switch>
     </div>
   </div>
 </template>

@@ -7,8 +7,8 @@ const twColors = resolveConfig(tailwindConfig).theme?.colors;
 const greenTheme: ThemeDefinition = {
   dark: false,
   colors: {
-    primary: twColors?.green[300],
-    secondary: twColors?.green[300],
+    primary: twColors?.green[400],
+    secondary: twColors?.green[200],
     background: twColors?.green[50],
     surface: twColors?.green[50],
     accent: twColors?.green[50],
