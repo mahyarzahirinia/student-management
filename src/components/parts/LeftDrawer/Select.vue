@@ -17,6 +17,8 @@ const selected = defineModel<string>();
         :items="props.items"
         class="border-b-0"
         density="compact"
+        item-title="label"
+        item-value="value"
         variant="outlined"
       >
         <v-list-item>test</v-list-item>

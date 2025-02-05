@@ -4,7 +4,9 @@ import { RouterLink, RouterView } from "vue-router";
 import MainAppBar from "@/components/MainAppBar.vue";
 import NavigationDrawer from "@/components/NavigationDrawer.vue";
 import LeftDrawer from "@/components/LeftDrawer.vue";
+import { useUserSettings } from "@/stores/usersettings";
 
+const userSettings = useUserSettings();
 const isDrawerOpen = ref(true);
 const isLeftDrawerOpen = ref(true);
 
@@ -19,7 +21,7 @@ const toggleLeftDrawer = () => {
 
 <template>
   <v-locale-provider rtl>
-    <v-app class="py-4" full-height theme="green">
+    <v-app :theme="userSettings.currentTheme" class="py-4" full-height>
       <MainAppBar
         @toggleDrawer="toggleDrawer"
         @toggleLeftDrawer="toggleLeftDrawer"

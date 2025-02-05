@@ -1,17 +1,28 @@
 <script lang="ts" setup="">
 import Logo from "@/assets/leftSidebar/Logo.avif";
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import Select from "@/components/parts/LeftDrawer/Select.vue";
 import Switch from "@/components/parts/LeftDrawer/Switch.vue";
 import Divider from "@/components/parts/LeftDrawer/Divider.vue";
 import Image from "@/components/parts/LeftDrawer/Image.vue";
 import Bar from "@/components/parts/LeftDrawer/Bar.vue";
+import { useUserSettings } from "@/stores/usersettings";
+
+const userSettings = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
 const selects = reactive({
   template: {
-    data: ["سبز", "قرمز", "زرد", "خاکستری"],
-    selected: "سبز",
+    data: [
+      { label: "سبز", value: "green" },
+      { label: "قرمز", value: "red" },
+      { label: "زرد", value: "yellow" },
+      {
+        label: "خاکستری",
+        value: "gray",
+      },
+    ],
+    selected: "green",
   },
   pagePerRow: {
     data: ["5", "10", "15", "همه"],
@@ -33,6 +44,13 @@ const switches = reactive({
     selected: true,
   },
 });
+
+watch(
+  () => selects.template.selected,
+  (value) => {
+    userSettings.changeTheme(value);
+  },
+);
 </script>
 
 <template>
