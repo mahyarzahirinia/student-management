@@ -1,7 +1,8 @@
 <script lang="ts" setup="">
-import { defineProps } from "vue";
+import { defineProps, defineEmits } from "vue";
 
-const props = defineProps<{ loading: boolean }>();
+const props = defineProps<{ shouldRevert: boolean }>();
+const emits = defineEmits(["revertChanges", "applyChanges"]);
 </script>
 
 <template>
@@ -9,10 +10,16 @@ const props = defineProps<{ loading: boolean }>();
     class="!flex flex-col justify-center items-center gap-2 py-2"
     elevation="0"
   >
-    <v-btn :loading="props.loading" color="info" rounded="1"
+    <v-btn color="info" rounded="1" @click="emits('applyChanges')"
       >اعمال تغییرات</v-btn
     >
-    <v-btn color="warning" rounded="1">اعمال تنظیمات پیشفرض</v-btn>
+    <v-btn
+      v-show="props.shouldRevert"
+      color="warning"
+      rounded="1"
+      @click="emits('revertChanges')"
+      >اعمال تنظیمات پیشفرض
+    </v-btn>
   </v-card>
 </template>
 

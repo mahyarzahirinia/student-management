@@ -10,7 +10,9 @@ import {
 } from "@/stores/usersettingsData";
 
 export const useUserSettings = defineStore("usersettings", {
-  state: () => userSettingsInit,
+  state: () => ({
+    ...userSettingsInit,
+  }),
   getters: {
     currentTheme(state: UserSettingsInit) {
       return state.selects.template.selected;

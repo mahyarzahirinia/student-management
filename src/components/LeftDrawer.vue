@@ -10,36 +10,59 @@ import ChangeDetector from "@/components/parts/LeftDrawer/ChangeDetector.vue";
 import { useUserSettings } from "@/stores/usersettings";
 import _ from "lodash";
 import { userSettingsInit } from "@/stores/usersettingsData";
+import { state } from "sucrase/dist/types/parser/traverser/base";
 
 const userSettingsStore = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
 
-const states = reactive(userSettingsInit);
+const severedInitStateObject = JSON.parse(JSON.stringify(userSettingsStore));
+const states = reactive({ ...severedInitStateObject });
+const applyStates = reactive({
+  areObjectsEqual: true,
+  apply: true,
+  applyQuickly: false,
+  revert: false,
+});
 
 watch(
-  () => userSettingsStore.switches.isPersianNumbers.selected,
+  () => states.switches.isPersianNumbers.selected,
   (value) => {
-    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
+    if (states.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeIsPersianNumbers(value);
   },
 );
 
 watch(
-  () => userSettingsStore.selects.itemsPerPage.selected,
+  () => states.selects.itemsPerPage.selected,
   (value) => {
-    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
+    if (states.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeItemsPerPage(value);
   },
 );
 
 watch(
-  () => userSettingsStore.selects.template.selected,
+  () => states.selects.template.selected,
   (value) => {
-    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
+    if (states.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeTheme(value);
   },
 );
+
+watch(
+  () => JSON.stringify(states) === JSON.stringify(userSettingsStore),
+  (value) => {
+    applyStates.areObjectsEqual = !value;
+  },
+);
+
+const handleRevertChanges = () => {
+  Object.assign(states, userSettingsStore);
+};
+
+const handleApplyChanges = () => {
+  Object.assign(userSettingsStore, states);
+};
 </script>
 
 <template>
@@ -62,43 +85,45 @@ watch(
             <Divider title="ظاهر" />
             <!--انتخاب قالب:-->
             <Select
-              v-model="userSettingsStore.selects.template.selected"
-              :items="userSettingsStore.selects.template.data"
+              v-model="states.selects.template.selected"
+              :items="states.selects.template.data"
               title="انتخاب قالب:"
             />
             <!--انیمیشن:-->
             <Switch
-              v-model="userSettingsStore.switches.animation.selected"
+              v-model="states.switches.animation.selected"
               title="انیمیشن:"
             />
             <!--محتوا-->
             <Divider title="محتوا" />
             <!--تعداد لیست هر صفحه:-->
             <Select
-              v-model="userSettingsStore.selects.itemsPerPage.selected"
-              :items="userSettingsStore.selects.itemsPerPage.data"
+              v-model="states.selects.itemsPerPage.selected"
+              :items="states.selects.itemsPerPage.data"
               title="تعداد لیست هر صفحه:"
             />
             <!--نمایش راهنما:-->
             <Switch
-              v-model="userSettingsStore.switches.isHelp.selected"
+              v-model="states.switches.isHelp.selected"
               title="نمایش راهنما:"
             />
             <!--نمایش اعداد به فارسی:-->
             <Switch
-              v-model="userSettingsStore.switches.isPersianNumbers.selected"
+              v-model="states.switches.isPersianNumbers.selected"
               title="نمایش اعداد به فارسی:"
             />
             <!--تنظیمات-->
             <Divider title="تنظیمات" />
             <!--اعمال سریع تغییرات:-->
             <Switch
-              v-model="
-                userSettingsStore.switches.isChangesQuicklyApplied.selected
-              "
+              v-model="states.switches.isChangesQuicklyApplied.selected"
               title="اعمال سریع تغییرات:"
             />
-            <ChangeDetector />
+            <ChangeDetector
+              :should-revert="applyStates.areObjectsEqual"
+              @revert-changes="handleRevertChanges"
+              @apply-changes="handleApplyChanges"
+            />
           </div>
         </div>
       </v-layout>
