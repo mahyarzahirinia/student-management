@@ -6,65 +6,47 @@ import Switch from "@/components/parts/LeftDrawer/Switch.vue";
 import Divider from "@/components/parts/LeftDrawer/Divider.vue";
 import Image from "@/components/parts/LeftDrawer/Image.vue";
 import Bar from "@/components/parts/LeftDrawer/Bar.vue";
+import ChangeDetector from "@/components/parts/LeftDrawer/ChangeDetector.vue";
 import { useUserSettings } from "@/stores/usersettings";
+import _ from "lodash";
+import { selectsInit, switchesInit } from "@/stores/usersettingsData";
 
 const userSettingsStore = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
-const selects = reactive({
-  template: {
-    data: [
-      { label: "سبز", value: "green" },
-      { label: "قرمز", value: "red" },
-      { label: "زرد", value: "yellow" },
-      { label: "خاکستری", value: "gray" },
-    ],
-    selected: "green",
-  },
-  itemsPerPage: {
-    data: [
-      { label: "5", value: "5" },
-      { label: "10", value: "10" },
-      { label: "15", value: "15" },
-      { label: "همه", value: "-1" },
-    ],
-    selected: "5",
-  },
-});
-
-const switches = reactive({
-  animation: {
-    selected: true,
-  },
-  isHelp: {
-    selected: true,
-  },
-  isPersianNumbers: {
-    selected: true,
-  },
-  isChangesQuicklyApplied: {
-    selected: true,
-  },
-});
+const createSelects = () => structuredClone(selectsInit);
+const createSwitches = () => structuredClone(switchesInit);
+const selects = reactive(createSelects());
+const switches = reactive(createSwitches());
 
 watch(
   () => switches.isPersianNumbers.selected,
   (value) => {
-    userSettingsStore.changeIsPersianNumbers(value);
+    if (switches.isChangesQuicklyApplied.selected)
+      userSettingsStore.changeIsPersianNumbers(value);
   },
 );
 
 watch(
   () => selects.itemsPerPage.selected,
-  (value) => userSettingsStore.changeItemsPerPage(value),
+  (value) => {
+    if (switches.isChangesQuicklyApplied.selected)
+      userSettingsStore.changeItemsPerPage(value);
+  },
 );
 
 watch(
   () => selects.template.selected,
   (value) => {
-    userSettingsStore.changeTheme(value);
+    if (switches.isChangesQuicklyApplied.selected)
+      userSettingsStore.changeTheme(value);
   },
 );
+
+// watch(
+//   () => _.isEqual([selects, switches], [userSettingsStore]),
+//   () => {},
+// );
 </script>
 
 <template>
@@ -115,6 +97,7 @@ watch(
               v-model="switches.isChangesQuicklyApplied.selected"
               title="اعمال سریع تغییرات:"
             />
+            <ChangeDetector />
           </div>
         </div>
       </v-layout>

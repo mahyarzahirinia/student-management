@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { nextTick, reactive, ref, onMounted, inject } from "vue";
 import { useStudentsStore } from "@/stores/students";
-import { type Student } from "@/stores/data";
+import { type Student } from "@/stores/studentsData";
 import CreateEditDialog from "@/views/dialogs/studentManagement/CreateEditDialog.vue";
 import RemoveDialog from "@/views/dialogs/studentManagement/RemoveDialog.vue";
 import moment from "jalali-moment";

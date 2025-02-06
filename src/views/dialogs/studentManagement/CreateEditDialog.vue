@@ -3,7 +3,7 @@ import { computed, ref, watch } from "vue";
 import Vue3PersianDatetimePicker from "vue3-persian-datetime-picker";
 import { useForm, useField } from "vee-validate";
 import * as yup from "yup";
-import { type Student } from "@/stores/data";
+import { type Student } from "@/stores/studentsData";
 import { boolean } from "yup";
 import moment from "moment";
 import "moment/locale/fa";
