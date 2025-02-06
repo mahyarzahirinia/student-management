@@ -212,7 +212,7 @@ const dummyProps = reactive({
         <template v-slot:item.operations="{ index, item }">
           <div class="flex flex-row">
             <v-btn
-              class="before:text-green-500"
+              color="info"
               icon="mdi-account-edit"
               variant="text"
               @click="openEditDialog(item.id)"
