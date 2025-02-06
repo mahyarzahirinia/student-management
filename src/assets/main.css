@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/*english numbers*/
 @font-face {
     font-family: vazir-medium;
     src: url('fonts/Vazir-Medium.eot');
@@ -35,17 +36,55 @@
     font-style: normal;
 }
 
-.main-persian-font {
-    font-family: 'vazir-medium', sans-serif;
+/*persian numbers only*/
+@font-face {
+    font-family: vazir-medium-farsi-num;
+    src: url('fonts/Vazir-Medium-FD-WOL.eot');
+    src: url('fonts/Vazir-Medium-FD-WOL.eot?#iefix') format('FontName-opentype'),
+    url('fonts/Vazir-Medium-FD-WOL.woff') format('woff'),
+    url('fonts/Vazir-Medium-FD-WOL.woff2') format('woff2'),
+    url('fonts/Vazir-Medium-FD-WOL.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
 }
 
+@font-face {
+    font-family: vazir-thin-farsi-num;
+    src: url('fonts/Vazir-Thin-FD-WOL.eot');
+    src: url('fonts/Vazir-Thin-FD-WOL.eot?#iefix') format('FontName-opentype'),
+    url('fonts/Vazir-Thin-FD-WOL.woff') format('woff'),
+    url('fonts/Vazir-Thin-FD-WOL.woff2') format('woff2'),
+    url('fonts/Vazir-Thin-FD-WOL.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "vazir-bold", sans-serif;
+@font-face {
+    font-family: vazir-bold-farsi-num;
+    src: url('fonts/Vazir-bold-FD-WOL.eot');
+    src: url('fonts/Vazir-bold-FD-WOL.eot?#iefix') format('FontName-opentype'),
+    url('fonts/Vazir-bold-FD-WOL.woff') format('woff'),
+    url('fonts/Vazir-bold-FD-WOL.woff2') format('woff2'),
+    url('fonts/Vazir-bold-FD-WOL.ttf') format('truetype');
     font-weight: 700;
+    font-style: normal;
 }
+
+:root {
+    --app-font: 'vazir-thin', sans-serif;
+}
+
+/*.main-persian-font {*/
+/*    font-family: 'vazir-medium', sans-serif;*/
+/*}*/
+
+
+/*h1, h2, h3, h4, h5, h6 {*/
+/*    font-family: "vazir-bold", sans-serif;*/
+/*    !*font-weight: 700;*!*/
+/*}*/
 
 p, div, span {
-    font-family: "vazir-thin", sans-serif;
-    font-weight: 100;
+    font-family: var(--app-font), sans-serif;
+    /*font-weight: 100;*/
 }

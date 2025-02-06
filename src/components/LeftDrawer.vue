@@ -36,16 +36,23 @@ const switches = reactive({
   animation: {
     selected: true,
   },
-  showHelp: {
+  isHelp: {
     selected: true,
   },
-  showPersianNumbers: {
+  isPersianNumbers: {
     selected: true,
   },
-  applyChangesQuickly: {
+  isChangesQuicklyApplied: {
     selected: true,
   },
 });
+
+watch(
+  () => switches.isPersianNumbers.selected,
+  (value) => {
+    userSettingsStore.changeIsPersianNumbers(value);
+  },
+);
 
 watch(
   () => selects.itemsPerPage.selected,
@@ -95,20 +102,17 @@ watch(
               title="تعداد لیست هر صفحه:"
             />
             <!--نمایش راهنما:-->
-            <Switch
-              v-model="switches.showHelp.selected"
-              title="نمایش راهنما:"
-            />
+            <Switch v-model="switches.isHelp.selected" title="نمایش راهنما:" />
             <!--نمایش اعداد به فارسی:-->
             <Switch
-              v-model="switches.showPersianNumbers.selected"
+              v-model="switches.isPersianNumbers.selected"
               title="نمایش اعداد به فارسی:"
             />
             <!--تنظیمات-->
             <Divider title="تنظیمات" />
             <!--اعمال سریع تغییرات:-->
             <Switch
-              v-model="switches.applyChangesQuickly.selected"
+              v-model="switches.isChangesQuicklyApplied.selected"
               title="اعمال سریع تغییرات:"
             />
           </div>
