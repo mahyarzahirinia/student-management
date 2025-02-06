@@ -1,33 +1,37 @@
 import { defineStore } from "pinia";
 import { changeFont } from "../helper/changeFont";
+import {
+  type SelectsInit,
+  type SwitchesInit,
+  type UserSettingsInit,
+  selectsInit,
+  switchesInit,
+  userSettingsInit,
+} from "@/stores/usersettingsData";
 
 export const useUserSettings = defineStore("usersettings", {
-  state: () => ({
-    theme: "green",
-    itemsPerPage: "5",
-    isPersianNumbers: true,
-  }),
+  state: () => userSettingsInit,
   getters: {
-    currentTheme(state) {
-      return state.theme;
+    currentTheme(state: UserSettingsInit) {
+      return state.selects.template.selected;
     },
     currentItemsPerPage(state) {
-      return state.itemsPerPage;
+      return state.selects.itemsPerPage.selected;
     },
     currentIsPersianNumbers(state) {
-      return state.isPersianNumbers;
+      return state.switches.isPersianNumbers;
     },
   },
   actions: {
     changeTheme(name: string) {
-      return (this.theme = name);
+      return (this.selects.template.selected = name);
     },
     changeItemsPerPage(itemsNumber: string) {
-      return (this.itemsPerPage = itemsNumber);
+      return (this.selects.itemsPerPage.selected = itemsNumber);
     },
     changeIsPersianNumbers(isPersianNumbers: boolean) {
       changeFont(isPersianNumbers);
-      return (this.isPersianNumbers = isPersianNumbers);
+      return (this.switches.isPersianNumbers.selected = isPersianNumbers);
     },
   },
   persist: {

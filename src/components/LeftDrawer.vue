@@ -9,47 +9,37 @@ import Bar from "@/components/parts/LeftDrawer/Bar.vue";
 import ChangeDetector from "@/components/parts/LeftDrawer/ChangeDetector.vue";
 import { useUserSettings } from "@/stores/usersettings";
 import _ from "lodash";
-import {
-  type SelectsInit,
-  type SwitchesInit,
-  selectsInit,
-  switchesInit,
-} from "@/stores/usersettingsData";
+import { userSettingsInit } from "@/stores/usersettingsData";
 
 const userSettingsStore = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
-const selects = reactive<SelectsInit>({ ...selectsInit });
-const switches = reactive<SwitchesInit>({ ...switchesInit });
+
+const states = reactive(userSettingsInit);
 
 watch(
-  () => switches.isPersianNumbers.selected,
+  () => userSettingsStore.switches.isPersianNumbers.selected,
   (value) => {
-    if (switches.isChangesQuicklyApplied.selected)
+    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeIsPersianNumbers(value);
   },
 );
 
 watch(
-  () => selects.itemsPerPage.selected,
+  () => userSettingsStore.selects.itemsPerPage.selected,
   (value) => {
-    if (switches.isChangesQuicklyApplied.selected)
+    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeItemsPerPage(value);
   },
 );
 
 watch(
-  () => selects.template.selected,
+  () => userSettingsStore.selects.template.selected,
   (value) => {
-    if (switches.isChangesQuicklyApplied.selected)
+    if (userSettingsStore.switches.isChangesQuicklyApplied.selected)
       userSettingsStore.changeTheme(value);
   },
 );
-
-// watch(
-//   () => _.isEqual([selects, switches], [userSettingsStore]),
-//   () => {},
-// );
 </script>
 
 <template>
@@ -72,32 +62,40 @@ watch(
             <Divider title="ظاهر" />
             <!--انتخاب قالب:-->
             <Select
-              v-model="selects.template.selected"
-              :items="selects.template.data"
+              v-model="userSettingsStore.selects.template.selected"
+              :items="userSettingsStore.selects.template.data"
               title="انتخاب قالب:"
             />
             <!--انیمیشن:-->
-            <Switch v-model="switches.animation.selected" title="انیمیشن:" />
+            <Switch
+              v-model="userSettingsStore.switches.animation.selected"
+              title="انیمیشن:"
+            />
             <!--محتوا-->
             <Divider title="محتوا" />
             <!--تعداد لیست هر صفحه:-->
             <Select
-              v-model="selects.itemsPerPage.selected"
-              :items="selects.itemsPerPage.data"
+              v-model="userSettingsStore.selects.itemsPerPage.selected"
+              :items="userSettingsStore.selects.itemsPerPage.data"
               title="تعداد لیست هر صفحه:"
             />
             <!--نمایش راهنما:-->
-            <Switch v-model="switches.isHelp.selected" title="نمایش راهنما:" />
+            <Switch
+              v-model="userSettingsStore.switches.isHelp.selected"
+              title="نمایش راهنما:"
+            />
             <!--نمایش اعداد به فارسی:-->
             <Switch
-              v-model="switches.isPersianNumbers.selected"
+              v-model="userSettingsStore.switches.isPersianNumbers.selected"
               title="نمایش اعداد به فارسی:"
             />
             <!--تنظیمات-->
             <Divider title="تنظیمات" />
             <!--اعمال سریع تغییرات:-->
             <Switch
-              v-model="switches.isChangesQuicklyApplied.selected"
+              v-model="
+                userSettingsStore.switches.isChangesQuicklyApplied.selected
+              "
               title="اعمال سریع تغییرات:"
             />
             <ChangeDetector />
