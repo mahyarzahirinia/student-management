@@ -1,6 +1,6 @@
 <script lang="ts" setup="">
 import Logo from "@/assets/leftSidebar/Logo.avif";
-import { reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import Select from "@/components/parts/LeftDrawer/Select.vue";
 import Switch from "@/components/parts/LeftDrawer/Switch.vue";
 import Divider from "@/components/parts/LeftDrawer/Divider.vue";
@@ -9,15 +9,18 @@ import Bar from "@/components/parts/LeftDrawer/Bar.vue";
 import ChangeDetector from "@/components/parts/LeftDrawer/ChangeDetector.vue";
 import { useUserSettings } from "@/stores/usersettings";
 import _ from "lodash";
-import { selectsInit, switchesInit } from "@/stores/usersettingsData";
+import {
+  type SelectsInit,
+  type SwitchesInit,
+  selectsInit,
+  switchesInit,
+} from "@/stores/usersettingsData";
 
 const userSettingsStore = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
-const createSelects = () => structuredClone(selectsInit);
-const createSwitches = () => structuredClone(switchesInit);
-const selects = reactive(createSelects());
-const switches = reactive(createSwitches());
+const selects = reactive<SelectsInit>({ ...selectsInit });
+const switches = reactive<SwitchesInit>({ ...switchesInit });
 
 watch(
   () => switches.isPersianNumbers.selected,
