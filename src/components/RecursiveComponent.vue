@@ -10,32 +10,37 @@ const compProps = defineProps<{ node: Node }>();
   <template
     v-if="isNodeParent(compProps.node) && isNodeVisible(compProps.node)"
   >
-    <v-list-item
-      :prepend-icon="compProps.node?.icon"
-      :title="compProps.node?.label"
-      :to="compProps.node.path"
-    ></v-list-item>
+    <v-list-item :title="compProps.node?.label" :to="compProps.node.path">
+      <template v-slot:prepend>
+        <v-icon :icon="compProps.node?.icon" class="text-primary" />
+      </template>
+    </v-list-item>
   </template>
 
   <template v-else-if="isNodeVisible(compProps.node)">
     <v-list-group :value="compProps.node.path">
       <template v-slot:activator="{ props }">
         <v-list-item
-          :prepend-icon="compProps.node?.icon"
           :title="compProps.node.label"
           :to="compProps.node.path"
           v-bind="props"
-        ></v-list-item>
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="compProps.node?.icon" class="text-primary" />
+          </template>
+        </v-list-item>
       </template>
 
       <template v-for="child in compProps.node?.children" :key="child.path">
         <template v-if="!child.children">
           <v-list-item
-            :prepend-icon="child?.icon"
             :title="child?.label"
             :to="child.path"
             :value="child.path"
           >
+            <template v-slot:prepend>
+              <v-icon :icon="child?.icon" class="text-primary" />
+            </template>
           </v-list-item>
         </template>
 
