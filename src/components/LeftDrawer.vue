@@ -8,7 +8,7 @@ import Image from "@/components/parts/LeftDrawer/Image.vue";
 import Bar from "@/components/parts/LeftDrawer/Bar.vue";
 import { useUserSettings } from "@/stores/usersettings";
 
-const userSettings = useUserSettings();
+const userSettingsStore = useUserSettings();
 
 const isDrawerOpen = defineModel<boolean>();
 const selects = reactive({
@@ -17,15 +17,17 @@ const selects = reactive({
       { label: "سبز", value: "green" },
       { label: "قرمز", value: "red" },
       { label: "زرد", value: "yellow" },
-      {
-        label: "خاکستری",
-        value: "gray",
-      },
+      { label: "خاکستری", value: "gray" },
     ],
     selected: "green",
   },
-  pagePerRow: {
-    data: ["5", "10", "15", "همه"],
+  itemsPerPage: {
+    data: [
+      { label: "5", value: "5" },
+      { label: "10", value: "10" },
+      { label: "15", value: "15" },
+      { label: "همه", value: "-1" },
+    ],
     selected: "5",
   },
 });
@@ -46,9 +48,14 @@ const switches = reactive({
 });
 
 watch(
+  () => selects.itemsPerPage.selected,
+  (value) => userSettingsStore.changeItemsPerPage(value),
+);
+
+watch(
   () => selects.template.selected,
   (value) => {
-    userSettings.changeTheme(value);
+    userSettingsStore.changeTheme(value);
   },
 );
 </script>
@@ -83,8 +90,8 @@ watch(
             <Divider title="محتوا" />
             <!--تعداد لیست هر صفحه:-->
             <Select
-              v-model="selects.pagePerRow.selected"
-              :items="selects.pagePerRow.data"
+              v-model="selects.itemsPerPage.selected"
+              :items="selects.itemsPerPage.data"
               title="تعداد لیست هر صفحه:"
             />
             <!--نمایش راهنما:-->

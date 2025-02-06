@@ -7,20 +7,11 @@ import RemoveDialog from "@/views/dialogs/studentManagement/RemoveDialog.vue";
 import moment from "jalali-moment";
 import Print from "@/components/facilitator/Print.vue";
 import { useDebounce } from "@vueuse/core";
-
-//
-// const DocumentEditor = inject("DocumentEditor");
-// import {
-//   DocumentEditorContainerComponent as EjsDocumenteditorcontainer,
-//   Toolbar,
-// } from "@syncfusion/ej2-vue-documenteditor";
-//
-// const serviceUrl =
-//   "https://ej2services.syncfusion.com/production/web-services/api/documenteditor/";
-// const documenteditor = null;
+import { useUserSettings } from "@/stores/usersettings";
 
 const studentsStore = useStudentsStore();
 const students = studentsStore.students;
+const userSettingsStore = useUserSettings();
 
 const search = ref("");
 const printArea = ref(null);
@@ -214,8 +205,8 @@ const dummyProps = reactive({
         v-model="selected"
         :headers="headers"
         :items="students"
+        :items-per-page="userSettingsStore.currentItemsPerPage"
         :search="search"
-        items-per-page="5"
         show-select
       >
         <template v-slot:item.operations="{ index, item }">
