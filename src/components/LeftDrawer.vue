@@ -18,50 +18,61 @@ const isDrawerOpen = defineModel<boolean>();
 
 const severedInitStateObject = JSON.parse(JSON.stringify(userSettingsStore));
 const states = reactive({ ...severedInitStateObject });
-const applyStates = reactive({
-  areObjectsEqual: true,
-  apply: true,
-  applyQuickly: false,
-  revert: false,
-});
+const areStateStoreEqual = ref<boolean>(true);
+const isChangedQuickly = ref<boolean>(true);
 
-watch(
-  () => states.switches.isPersianNumbers.selected,
-  (value) => {
-    if (states.switches.isChangesQuicklyApplied.selected)
-      userSettingsStore.changeIsPersianNumbers(value);
-  },
-);
-
-watch(
-  () => states.selects.itemsPerPage.selected,
-  (value) => {
-    if (states.switches.isChangesQuicklyApplied.selected)
-      userSettingsStore.changeItemsPerPage(value);
-  },
-);
-
-watch(
-  () => states.selects.template.selected,
-  (value) => {
-    if (states.switches.isChangesQuicklyApplied.selected)
-      userSettingsStore.changeTheme(value);
-  },
-);
+//
+// watch(
+//   () => states.switches.isPersianNumbers.selected,
+//   (value) => {
+//     if (states.switches.isChangesQuicklyApplied.selected)
+//       userSettingsStore.changeIsPersianNumbers(value);
+//   },
+// );
+//
+// watch(
+//   () => states.selects.itemsPerPage.selected,
+//   (value) => {
+//     if (states.switches.isChangesQuicklyApplied.selected)
+//       userSettingsStore.changeItemsPerPage(value);
+//   },
+// );
+//
+// watch(
+//   () => states.selects.template.selected,
+//   (value) => {
+//     if (states.switches.isChangesQuicklyApplied.selected)
+//       userSettingsStore.changeTheme(value);
+//   },
+// );
+//
+// watch(
+//   () => JSON.stringify(states) === JSON.stringify(userSettingsStore),
+//   (value) => {
+//     applyStates.areObjectsEqual = value;
+//   },
+// );
 
 watch(
   () => JSON.stringify(states) === JSON.stringify(userSettingsStore),
   (value) => {
-    applyStates.areObjectsEqual = !value;
+    areStateStoreEqual.value = value;
+    if (isChangedQuickly.value)
+      userSettingsStore.setStore(JSON.parse(JSON.stringify(states)));
+    console.log("store:", userSettingsStore.selects.template.selected);
+    console.log("states:", states.selects.template.selected);
+    console.log("areObjectsEqual:", areStateStoreEqual.value);
+    console.log("isChangedQuickly:", isChangedQuickly.value);
+    console.log("--------------");
   },
 );
 
 const handleRevertChanges = () => {
-  Object.assign(states, userSettingsStore);
+  states.$state = userSettingsStore;
 };
 
 const handleApplyChanges = () => {
-  Object.assign(userSettingsStore, states);
+  userSettingsStore.setStore(states);
 };
 </script>
 
@@ -115,12 +126,9 @@ const handleApplyChanges = () => {
             <!--تنظیمات-->
             <Divider title="تنظیمات" />
             <!--اعمال سریع تغییرات:-->
-            <Switch
-              v-model="states.switches.isChangesQuicklyApplied.selected"
-              title="اعمال سریع تغییرات:"
-            />
+            <Switch v-model="isChangedQuickly" title="اعمال سریع تغییرات:" />
             <ChangeDetector
-              :should-revert="applyStates.areObjectsEqual"
+              :should-operate="areStateStoreEqual"
               @revert-changes="handleRevertChanges"
               @apply-changes="handleApplyChanges"
             />

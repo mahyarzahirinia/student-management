@@ -25,15 +25,13 @@ export const useUserSettings = defineStore("usersettings", {
     },
   },
   actions: {
-    changeTheme(name: string) {
-      return (this.selects.template.selected = name);
+    revertStore(state: UserSettingsInit) {
+      return (this.$state = {
+        ...userSettingsInit,
+      });
     },
-    changeItemsPerPage(itemsNumber: string) {
-      return (this.selects.itemsPerPage.selected = itemsNumber);
-    },
-    changeIsPersianNumbers(isPersianNumbers: boolean) {
-      changeFont(isPersianNumbers);
-      return (this.switches.isPersianNumbers.selected = isPersianNumbers);
+    setStore(state: UserSettingsInit) {
+      return (this.$state = state);
     },
   },
   persist: {
