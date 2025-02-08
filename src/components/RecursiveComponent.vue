@@ -2,6 +2,7 @@
 import { defineProps } from "vue";
 import { type Node } from "@/routes/mainRoutes";
 import { isNodeParent, isNodeVisible } from "@/helper/isNodeParent";
+import ItemList from "@/components/parts/RecursiveComponent/ItemList.vue";
 
 const compProps = defineProps<{ node: Node }>();
 </script>
@@ -20,15 +21,12 @@ const compProps = defineProps<{ node: Node }>();
   <template v-else-if="isNodeVisible(compProps.node)">
     <v-list-group :value="compProps.node.path">
       <template v-slot:activator="{ props }">
-        <v-list-item
-          :title="compProps.node.label"
-          :to="compProps.node.path"
-          v-bind="props"
-        >
-          <template v-slot:prepend>
-            <v-icon :icon="compProps.node?.icon" class="text-primary" />
-          </template>
-        </v-list-item>
+        <ItemList
+          :icon="compProps.node.icon"
+          :label="compProps.node.label"
+          :path="compProps.node.path"
+          :props="props"
+        />
       </template>
 
       <template v-for="child in compProps.node?.children" :key="child.path">
