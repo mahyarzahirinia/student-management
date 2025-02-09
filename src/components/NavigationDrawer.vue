@@ -26,6 +26,7 @@ const handleOpenPermanent = () => {
       :permanent="isPermanent"
       :rail="!isPermanent"
       expand-on-hover
+      width="320"
     >
       <v-list v-model:opened="expanded">
         <v-icon

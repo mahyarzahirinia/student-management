@@ -1,13 +1,16 @@
 <script lang="ts" setup="">
 import { defineProps } from "vue";
 
-const props = defineProps<{
+export type ItemListType = {
   label?: string;
   path: string;
   icon?: string;
   props?: any;
   value?: any;
-}>();
+  children?: any;
+};
+
+const props = defineProps<ItemListType>();
 </script>
 
 <template>
