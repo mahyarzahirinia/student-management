@@ -31,6 +31,7 @@ export const useUserSettings = defineStore("usersettings", {
       });
     },
     setStore(state: UserSettingsInit) {
+      changeFont(state.switches.isPersianNumbers.selected);
       return (this.$state = state);
     },
   },
