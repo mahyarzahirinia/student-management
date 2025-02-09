@@ -1,6 +1,9 @@
 import { type RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import StudentsManagementView from "../views/StudentsManagementView.vue";
+import SubRoute from "../components/SubRoute.vue";
+import MiniRoute from "../components/MiniRoute.vue";
+import MicroRoute from "../components/MicroRoute.vue";
 
 export type Node = Omit<RouteRecordRaw, "children"> & {
   visibility?: "hidden" | "visible";
@@ -28,13 +31,21 @@ const routes: Node[] = [
         path: "/students-management/sub-route1",
         name: "sub-route",
         label: "ساب روت ۱",
-        component: () => import("@/components/SubRoute.vue"),
+        component: SubRoute,
         children: [
           {
             label: "مینی روت",
             path: "/students-management/sub-route/mini-route",
             name: "mini-route",
-            component: () => import("@/components/MiniRoute.vue"),
+            component: MiniRoute,
+            children: [
+              {
+                label: "مایکرو روت",
+                path: "/students-management/sub-route/mini-route/micro-route",
+                name: "micro-route",
+                component: MicroRoute,
+              },
+            ],
           },
         ],
       },
@@ -42,7 +53,7 @@ const routes: Node[] = [
         label: "ساب روت ۲",
         path: "/students-management/sub-route2",
         name: "sub-route2",
-        component: () => import("@/components/SubRoute.vue"),
+        component: SubRoute,
       },
     ],
   },

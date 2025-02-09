@@ -149,6 +149,9 @@ const dummyProps = reactive({
 </script>
 
 <template>
+  <div>
+    <router-view></router-view>
+  </div>
   <v-card flat title="مدیریت دانشجو">
     <template v-slot:text>
       <div class="flex flex-col">
@@ -236,12 +239,6 @@ const dummyProps = reactive({
           </div>
         </template>
       </v-data-table>
-    </div>
-    <div>
-      <!--      <EjsDocumenteditorcontainer-->
-      <!--        :enableToolbar="true"-->
-      <!--        :serviceUrl="serviceUrl"-->
-      <!--      ></EjsDocumenteditorcontainer>-->
     </div>
   </v-card>
 </template>

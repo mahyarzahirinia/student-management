@@ -3,7 +3,8 @@ import routes from "../routes/mainRoutes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: routes,
+  // @ts-ignore
+  routes,
 });
 
 export default router;
