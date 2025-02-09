@@ -39,7 +39,7 @@ const handleOpenPermanent = () => {
           icon="mdi-pin"
           @click="handleOpenPermanent"
         />
-        <!--          pin-->
+        <!-- pin -->
         <template v-for="node in allNodes" :key="node.path">
           <RecursiveComponent :node="node" />
         </template>
